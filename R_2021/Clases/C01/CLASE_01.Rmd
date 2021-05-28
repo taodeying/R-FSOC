@@ -1,0 +1,539 @@
+---
+title: 'Caja de Herramientas: R@FSOC'
+author: "TAO"
+date: "5/14/2021"
+output: 
+    beamer_presentation:
+            slide_level: 2
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Caja de Herramientas
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.png}
+\end{center}
+
+
+
+# Presentación del Problema
+
+
+
+## Mundo Tabla
+
+\begin{center}
+\includegraphics[width=70mm]{screws.png}
+
+¿Es el Mundo Tabla la herramienta para todos nuestros problemas?
+
+\end{center}
+
+
+
+## Mundo Tabla
+
+Mundo Tabla: ¿Cual es el sentido de la vida, el universo y todo lo demás?
+
+>
+> 42
+>
+
+
+## Mundo Tabla
+
+Sabiendo que, un número primo es un número natural mayor que 1 que tiene únicamente dos divisores positivos distintos: él mismo y el 1.
+
+Mundo Tabla: ¿Cual es en número primo 1000?
+
+
+\
+\
+
+>
+> ...
+>
+
+## Rant
+
+\begin{center}
+\includegraphics[width=90mm]{3ad.jpg}
+\end{center}
+
+# Sintaxis de R
+
+## Expresiones
+
+El código R está compuesto por una serie de _expresiones_.
+
+#### Ejemplos:
+
+
+```{r echo=TRUE, eval=TRUE}
+# Instrucción condicional
+if (1 > 2) "mayor" else "menor"
+```
+
+#### Ejemplos:
+
+
+```{r echo=TRUE, eval=TRUE}
+# Instrucción asignación
+x <- 1
+
+```
+
+## Instrucciones de asignación 
+
+Creamos objetos con el operador de asignación. Las instrucciones de asignación tienen la forma:
+
+    - nombre_objeto <- valor
+
+```{r echo=TRUE, eval=TRUE}
+# Instrucción asignación
+x <- 1
+
+```
+
+## Expresiones
+
+R proporciona diferentes construcciones para agrupar expresiones:
+
+    - punto y coma
+    - paréntesis
+    - llaves
+
+# Tipos básicos en R
+
+
+## Tipos básicos en R
+
+_R_ tiene cuatro tipos básicos:
+
+- logical
+
+- numeric 
+
+- integer
+
+- character
+
+\scriptsize
+R proporciona cuatro tipos básicos de datos, también conocidos como vectores atómicos.
+
+
+
+
+## Logical
+
+\scriptsize
+El tipo logical es la forma que tiene R para los datos binarios. Usados en test logicos son conocidos como valores boleanos y toman los valores TRUE y FALSE. TRUE y FALSE pueden ser abreviados con las T y F en mayúsculas respectivamente, como podemos ver en el ejemplo, Sin embargo, te recomiendo que utilices la versión completa de TRUE y FALSE.
+
+
+- Valores booleanos, pueden ser TRUE o FALSE 
+
+- Usados en condiciones lógicas
+
+\scriptsize
+```{r echo=TRUE, eval=TRUE}
+3 < 4
+```
+\scriptsize
+```{r echo=TRUE, eval=TRUE}
+class(TRUE)
+```
+\scriptsize
+```{r echo=TRUE, eval=TRUE}
+class(T)
+```
+
+## Logical {.small}
+
+Es posible construir condiciones lógicas utilizando los operadores lógicos y de comparación.
+
+\scriptsize
+```{r echo=TRUE}
+a <- 2
+b <- 4
+a == b # ¿es igual a b?
+```
+
+\scriptsize
+```{r echo=TRUE}
+a != b # ¿es a distindo de b?
+```
+
+\scriptsize
+```{r echo=TRUE}
+(a <3) & (b < 5)  # ¿es a menor que 3 y b menor que 3?
+```
+
+\scriptsize
+```{r echo=TRUE}
+(a < 1) | (b < 3)  # ¿es a menor que 1 o b menor que 3?
+```
+
+## Operadores de Comparación
+
+|  | ?Comparision |
+| :---: | :--- |
+| &lt; | Menor que |
+| &gt; | Mayor que |
+| == | Igual a |
+| &lt;= | Menor que o igual a |
+| &gt;= | Mayor que o igual a |
+| != | Distinto a |
+| %in% | Pertenece a |
+| is.na\(\) | Es el valor NA? |
+| !is.na\(\) | Valores distintos a NA |
+
+
+## Operadores Lógicos
+
+|  | ?base::Logic |
+| :---: | :--- |
+| & | y \(boleano\) |
+| &#124; | o \(boleano\) |
+| ! | no |
+| any | Cualquiera verdadero |
+| all | Todos verdaderos |
+
+
+
+##
+
+Para mas información sobre la sintaxis de los operadores y su precedencia consultar la
+documentación R: 
+
+```{r echo=TRUE, eval=FALSE}
+# Sintaxis de comparación
+?Comparison
+# Operadores lógicos
+?base::Logic
+```
+
+
+
+## Numeric
+
+- Usados para números
+
+- Apropiados para matemáticas
+
+\scriptsize
+Para representar los numeros reales R proporciona el tipo _numeric_. Podemos realizar toda clase de operaciones con ellos como por ejemplo sumas, restas, multiplicaciones, divisiones y todo tipo de calculos.
+
+\scriptsize
+```{r echo=TRUE, eval=TRUE}
+mi_altura_en_cm <- 174
+mi_altura_en_cm
+```
+
+\scriptsize
+```{r echo=TRUE, eval=TRUE}
+mi_edad <- 33
+mi_edad
+```
+
+
+## Integer
+
+- Un tipo especial de __numeric__ es el __integer__
+
+- Añadir la letra "L"
+
+\scriptsize
+Un tipo especial de numeric es el integer. Este es el modo que tiene R de representar los numeros enteros. Para especificar que un numero es natural, debemos añadir la letra L en mayúscula como sufijo.
+
+\scriptsize
+```{r echo=TRUE, eval=TRUE}
+mi_edad <- 40L
+mi_edad
+```
+
+## 
+
+En el siguiente ejemplo, podemos apreciar la diferencia entre el numero real y el numero natural por medio de la función class.
+
+
+
+```{r echo=TRUE, eval=TRUE}
+class(40)
+
+```
+
+```{r echo=TRUE, eval=TRUE}
+class(40L)
+
+```
+
+
+
+## Character
+
+Cualquier carácter/cadena de carácteres entre comillas sera interpretado por R como "character" 
+
+```{r echo=TRUE, eval=TRUE}
+"Ciencia Política"
+```
+
+```{r echo=TRUE, eval=TRUE}
+x <- "Ciencia Política"
+x
+```
+
+
+
+## Otros tipos de datos básicos
+
+Por último, cabe mencionar que existen otros tipos de datos básicos en R, como el double que es un tipo numerico con mayor precisión que el numeric. El complex para números complejos y el raw para almacenar bytes.Sin embargo, no los trataremos en este curso puesto que raramente se utilizan en el análisis de datos
+
+
+- Double (más precisión que numeric)
+
+- Complex (números complejos)
+
+- Raw (almacenar bytes)
+
+
+
+
+# Objetos de R
+
+## Objetos de R (~~ Legos) 
+
+\begin{center}
+\includegraphics[width=60mm]{kladka-sten-v-odin-kirpich-20.jpg}
+\end{center}
+
+
+## Objetos de R (~~ Legos) 
+
+En R, las variables no necesitan ser declaradas como un tipo de datos. Las variables son asignadas a objetos de R y el tipo de datos del objeto de R se sonvierte en el tipo de datos de la Variable. Cabe destacar los siguientes objetos de R:
+
+
+## Vectores
+```{r echo=TRUE}
+# Crear a vector.
+manzana <- c('roja','verde',"amarilla")
+print(manzana)
+
+# Class del vector.
+print(class(manzana))
+```
+
+## Listas
+
+```{r echo=TRUE}
+# Crear una list.
+list1 <- list(c(2,5,3),21.3,sin)
+print(list1)
+```
+
+## Matrices
+```{r echo=TRUE}
+# Crear una matrix.
+M = matrix( c('a','a','b','c','b','a'), 
+            nrow = 2, ncol = 3, byrow = TRUE)
+print(M)
+```
+
+## Arrays
+```{r echo=TRUE}
+# Crear an array.
+a <- array(c('verde','amarillo'),dim = c(3,3,2))
+print(a)
+```
+
+## Factors
+```{r echo=TRUE}
+# Create a vector.
+manzanas <- c('verde','roja','amarilla',
+              'roja','amarilla','verde')
+
+# Crear un  objeto factor.
+factor_manzanas <- factor(manzanas)
+
+# Caracterización del factor.
+str(factor_manzanas)
+```
+
+## Data Frames
+```{r echo=TRUE}
+# Create the data frame.
+BMI <- 	data.frame(
+   gender = c("H", "H","F"), 
+   height = c(152, 171.5, 165), 
+   weight = c(81,93, 78),
+   Age = c(42,38,26)
+)
+print(BMI)
+```
+
+
+
+## Estructuras de Datos
+
+Las colecciones o conjunto de datos en R se organizan por su dimensión (1º, 2º, o varias dimensiones) y si son homogéneas (todos los objetos deben ser del mismo tipo) o heterogéneas ( el contenido puede ser de diferentes tipos). A continuación mostramos los cinco tipos
+de datos más usados en el análisis de datos:
+
+|  | **Homogénea** | **Heterogénea** |
+| :---: | :---: | :---: |
+| **1** | Vector atómico | Lista |
+| **2** | Matriz | Data frame |
+| **n** | Array |  |          | 
+
+_Tabla 1 Estructuras de datos_
+
+## Estructuras de Datos
+
+\tiny
+Como veremos podemos seleccionar un único elemento o varios elementos, mediante el uso de la notación de índices que proporciona R. Se puede elegir elementos por localización dentro de una estructura o por nombre.
+
+\tiny
+La [Tabla 2]() resume los operadores que aporta R para el acceso a objetos en estructuras de datos.
+
+\tiny
+
+| **Sintaxis** | **Objetos** | **Descripción** |
+| :--- | :--- | :--- |
+| __`x[i]`__ | Vectores, Listas | Selecciona elementos del objeto _x_, descritos en _i_. _i_ puede ser un vector de tipo integer, chararacter (de nombres de los objetos) o lógico. Cuando es usado con listas, devuelve una lista. Cuando es usado en vectores devuelve un vector. |
+| __`x[[i]]`__ | Listas | Devuelve un único elemento de _x_ que se encuentra en la posición _i_. _i_ puede ser un vector de tipo integer o character de longitud 1. |
+| __`x$n`__ | Listas, Dataframes | Devuelve un objeto con nombre _n_ del objeto _x_. |
+| __`[i, j`__] | Matrices | Devuelve el objeto de la fila _i_ y columna _j_. _i_ y _j_ pueden ser un vector de tipo integer o chararacter (de nombres de los objetos) |
+
+_Tabla 2 Notación para acceder estructuras de datos_
+
+
+
+# Mundo Tidy
+
+## Instalar y Cargar un Paquete
+
+```{r echo=TRUE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+
+## Tibble
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(kableExtra)
+```
+
+
+```{r echo=TRUE}
+dat <- tibble(
+	u = letters[1:5], v = as.factor(letters[1:5]),
+	w = 1:5,          x = runif(5,-1,1),
+	y = letters[1:5], z = x>0,
+	omega = 1+3i
+)
+```
+```{r}
+dat %>% kable 
+```
+
+
+## ¿Qué es un tibble?
+\scriptsize
+```{r}
+str(dat)
+```
+
+
+## Tipo de Datos 
+
+* *dbl* significa dobles, o números reales.
+
+* *chr* significa vectores de caracteres o cadenas.
+
+* *dttm* significa fechas y horas (una fecha + una hora).
+
+* *lgl* significa lógico, vectores que solo contienen TRUE (verdadero) o FALSE (falso).
+
+* *fctr* significa factores, que R usa para representar variables categóricas con valores posibles fijos.
+
+* *date* significa fechas.
+
+* *int* significa números enteros
+
+
+
+
+## Extraer Columnas
+
+```{r,echo=TRUE}
+df <- tibble(
+x = runif(5),
+y = rnorm(5)
+)
+
+df
+```
+
+## Extraer Columnas a Vector
+
+#### Por nombre
+\scriptsize
+```{r,echo=TRUE}
+df[["x"]]
+```
+\scriptsize
+```{r,echo=TRUE}
+df$x
+```
+
+#### Por posicion
+\scriptsize
+```{r,echo=TRUE}
+df[[1]]
+```
+
+#### Usando pipes
+\scriptsize
+```{r,echo=TRUE}
+df %>% .$x
+df %>% .[["x"]]
+```
+
+## Extraer Columnas manteniendo el D.F.
+
+#### Por nombre
+\scriptsize
+```{r,echo=TRUE}
+df["x"]
+```
+## Extraer Columnas manteniendo el D.F.
+
+#### Por posicion
+\scriptsize
+```{r,echo=TRUE}
+df[1]
+```
+## Extraer Columnas manteniendo el D.F.
+
+#### Usando pipes
+\scriptsize
+```{r,echo=TRUE}
+df %>% .["x"]
+```
+
+
+
+
+## Caja de Herramientas
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.jpg}
+\end{center}
+
+
+
+

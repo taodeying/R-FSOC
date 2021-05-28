@@ -1,0 +1,295 @@
+---
+title: 'Caja de Herramientas: R@FSOC'
+author: "TAO"
+date: "28/05/2021"
+output: 
+    beamer_presentation:
+            slide_level: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Caja de Herramientas
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.jpg}
+\end{center}
+
+
+
+# Uniendo Tablas
+
+## Uniendo Tablas
+
+
+\begin{center}
+\includegraphics[width=70mm]{ds4fsoc_ppt_01-figure/relational-nycflights.png}
+\end{center}
+
+## Librerias
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+```
+
+
+
+
+# Explicado los Joins
+
+## Ejemplo
+
+\begin{center}
+\includegraphics[width=40mm]{ds4fsoc_ppt_01-figure/join-setup_1.png}
+\end{center}
+
+\scriptsize
+```{r,echo=TRUE}
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+)
+```
+\scriptsize
+```{r,echo=TRUE}
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+)
+```
+
+
+
+## Inner join
+\scriptsize
+```{r,echo=TRUE}
+x %>% 
+  inner_join(y, by = "key")
+```
+ 
+
+\begin{center}
+\includegraphics[width=70mm]{ds4fsoc_ppt_01-figure/join-inner_2.png}
+\end{center}
+
+
+
+## Otros join
+
+\begin{center}
+\includegraphics[width=60mm]{ds4fsoc_ppt_01-figure/join-outer_3.png}
+\end{center}
+
+
+## Left join
+\scriptsize
+```{r,echo=TRUE}
+x %>% 
+  left_join(y, by = "key")
+```
+
+## Right join
+\scriptsize
+```{r,echo=TRUE}
+x %>% 
+  right_join(y, by = "key")
+```
+
+## Full join
+\scriptsize
+```{r,echo=TRUE}
+x %>% 
+  full_join(y, by = "key")
+```
+
+## Resumen
+
+\begin{center}
+\includegraphics[width=90mm]{ds4fsoc_ppt_01-figure/join-venn_4.png}
+\end{center}
+
+
+
+## Duplicados: Caso 1
+
+\scriptsize
+```{r,echo=TRUE}
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     1, "x4"
+)
+```
+
+\scriptsize
+```{r,echo=TRUE}
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2"
+)
+```
+
+## Duplicados: Caso 1
+
+\begin{center}
+\includegraphics[width=70mm]{ds4fsoc_ppt_01-figure/join-one-to-many_5.png}
+\end{center}
+
+
+\scriptsize
+```{r,echo=TRUE}
+inner_join(x, y, by = "key")
+```
+
+
+
+## Duplicados: Caso 2
+
+\scriptsize
+```{r,echo=TRUE}
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     3, "x4"
+)
+```
+
+\scriptsize
+```{r,echo=TRUE}
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     2, "y3",
+     3, "y4"
+)
+```
+
+## Duplicados: Caso 2
+
+\begin{center}
+\includegraphics[width=70mm]{ds4fsoc_ppt_01-figure/join-many-to-many_6.png}
+\end{center}
+
+\scriptsize
+```{r,echo=TRUE}
+inner_join(x, y, by = "key")
+```
+
+
+# Ejemplo
+
+
+
+## Librarias
+
+## Tablas
+
+\tiny
+```{r,echo=TRUE}
+head(airlines)
+```
+
+\tiny
+```{r,echo=TRUE}
+head(airports)
+```
+
+## Tablas
+\tiny
+```{r,echo=TRUE}
+head(planes)
+```
+
+\tiny
+```{r,echo=TRUE}
+head(weather)
+```
+
+## Tablas
+\tiny
+```{r,echo=TRUE}
+head(flights)
+```
+
+
+
+## Duplicados
+\scriptsize
+```{r,echo=TRUE}
+# Chequeo Duplicados, para entender la relación
+mean(duplicated(airlines$carrier))
+mean(duplicated(flights$carrier))
+```
+
+## Keys
+\scriptsize
+```{r,echo=TRUE}
+# Chequeo las keys para union
+key_1 = unique(flights$carrier)
+key_2 = unique(airlines$carrier)
+
+mean(key_1 %in% key_2)
+mean(key_2 %in% key_1)
+```
+
+# Join
+\tiny
+```{r,echo=TRUE}
+# Joins
+Eg_1 = flights %>% 
+  left_join(airlines)
+
+# Chequeo Final
+head(Eg_1)       # Chequeo de que hubo union
+nrow(flights)    # Chequeo cantidad de filas de flights
+nrow(airlines)   # Chequeo  cantidad de filas de  airlines
+nrow(Eg_1)       # Chequeo  cantidad de filas de Eg_1
+```
+
+```{r,echo=TRUE}
+
+# airlines_sub <- airlines %>% 
+#   filter(carrier %in% c("AA","AS" ))
+# 
+# airlines_sub[2,1] <- "AZ"
+# airlines_sub
+#   
+# # Chequeo Duplicados, para entender la relación
+# mean(duplicated(airlines$carrier))
+# mean(duplicated(flights$carrier))
+# 
+# # Chequeo las keys para union
+# key_1 = unique(flights$carrier)
+# key_2 = unique(airlines_sub$carrier)
+# 
+# mean(key_1 %in% key_2)
+# mean(key_2 %in% key_1)
+# 
+# # Joins
+# Eg_1 = flights %>% 
+#   inner_join(airlines_sub)
+# 
+# # Chequeo Final
+# head(Eg_1)       # Chequeo de que hubo union
+# nrow(flights)    # Chequeo cantidad de filas de flights
+# nrow(airlines)   # Chequeo  cantidad de filas de  airlines
+# nrow(Eg_1)       # Chequeo  cantidad de filas de Eg_1
+
+```
+
+
+

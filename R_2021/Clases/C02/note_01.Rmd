@@ -1,0 +1,315 @@
+---
+title: 'Caja de Herramientas: R@FSOC'
+author: "TAO"
+date: "05/21/2021"
+output: 
+    beamer_presentation:
+            slide_level: 2
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.jpg}
+\end{center}
+
+# Flujo de Trabajo
+
+
+## Flujo de Trabajo
+
+Flujo de trabajo típico en C.D.
+
+\begin{center}
+\includegraphics[width=70mm]{ds4fsoc_ppt_01-figure/data-science-explore.png}
+\end{center}
+
+
+
+# Manipulación Básica de Tablas de Datos
+
+## Librerías
+
+```{r,echo=TRUE}
+library(tidyverse)
+```
+
+
+## DataFrames
+
+Usamos datos y estructuras existentes en existentes en R: iris & Data Frame
+
+\scriptsize
+```{r,echo=TRUE}
+head(iris)
+```
+
+
+## Del data.frame al tibble:
+
+\scriptsize
+```{r,echo=TRUE}
+as_tibble(iris)
+```
+
+
+## Tipo de Datos:
+
+* *dbl* significa dobles, o números reales.
+* *chr* significa vectores de caracteres o cadenas.
+* *dttm* significa fechas y horas (una fecha + una hora).
+* *lgl* significa lógico, vectores que solo contienen TRUE (verdadero) o FALSE (falso).
+* *fctr* significa factores, que R usa para representar variables categóricas con valores posibles fijos.
+* *date* significa fechas.
+
+
+
+## Creando un tible
+
+```{r,echo=TRUE}
+tibble(
+x = 1:5,
+y = 1,
+z = x^2 + y
+)
+```
+
+
+## Usando tribble para crear tibble
+
+```{r,echo=TRUE}
+tribble(
+~x, ~y, ~z,
+"a", 2, 3.6,
+"b", 1, 8.5
+)
+```
+
+
+## Extraer Columnas
+
+```{r,echo=TRUE}
+df <- tibble(
+x = runif(5),
+y = rnorm(5)
+)
+```
+
+## Extraer Columnas a Vector
+
+#### Por nombre
+\scriptsize
+```{r,echo=TRUE}
+df[["x"]]
+```
+
+\scriptsize
+```{r,echo=TRUE}
+df$x
+```
+
+
+#### Por posicion
+
+\scriptsize
+```{r,echo=TRUE}
+df[[1]]
+```
+
+
+#### Usando pipes
+
+\scriptsize
+```{r,echo=TRUE}
+df %>% .$x
+df %>% .[["x"]]
+```
+
+## Extraer Columnas manteniendo el D.F.
+
+#### Por nombre
+
+\scriptsize
+```{r,echo=TRUE}
+df["x"]
+```
+
+
+## Extraer Columnas manteniendo el D.F.
+
+#### Por posicion
+
+\scriptsize
+```{r,echo=TRUE}
+df[1]
+```
+
+
+## Extraer Columnas manteniendo el D.F.
+
+#### Usando pipes
+
+\scriptsize
+```{r,echo=TRUE}
+df %>% .["x"]
+```
+
+# Transformando Datos
+
+## DataSet de Juguete
+
+```{r,echo=FALSE}
+library(nycflights13)
+```
+
+\tiny
+```{r,echo=TRUE}
+flights = read_csv("vuelos.csv")
+```
+## DataSet de Juguete
+\tiny
+```{r,echo=TRUE}
+head(flights)
+```
+
+## Funciones para transformar y manipular datos
+
+* filter()
+* arrange()
+* select()
+* mutate()
+* summarise()
+* group_by() 
+
+
+## Filter
+
+### filter()
+\tiny
+```{r,echo=TRUE}
+filter(flights, month == 1, day == 1)
+```
+
+
+## Operaciones lógicas
+
+\begin{center}
+\includegraphics[width=70mm]{ds4fsoc_ppt_01-figure/transform-logical.png}
+\end{center}
+
+
+## Más Ejemplos
+\tiny
+```{r,echo=TRUE}
+filter(flights, (month == 11 | month == 12) & !(dep_delay <= 0) )
+```
+
+## Más Ejemplos
+\tiny
+```{r,echo=TRUE}
+filter(flights,  dep_delay < 60 )
+```
+
+
+## Cuidado con los NA's
+
+
+## Arrange
+
+\tiny
+```{r,echo=TRUE}
+arrange(flights, year, month, day)
+```
+
+
+
+## Arrange
+\tiny
+```{r,echo=TRUE}
+arrange(flights, desc(dep_delay))
+```
+
+
+## Select
+
+\tiny
+```{r,echo=TRUE}
+sub_fligths = select(flights, month, day, tailnum, origin, dest, dep_delay)
+sub_fligths 
+```
+
+## Select
+\tiny
+```{r,echo=TRUE}
+# seleccionar cols excepto
+select(flights, -(year:day))
+```
+
+
+## Rename
+\tiny
+```{r,echo=TRUE}
+rename(flights, año = year)
+```
+
+
+## Mutate
+
+\tiny
+```{r,echo=TRUE}
+sub_fligths = mutate(sub_fligths, dep_puntual = dep_delay > 0, dep_puntual_grave = dep_delay > 30 )
+sub_fligths
+```
+
+
+## Summarise
+
+\tiny
+```{r,echo=TRUE}
+summarise(sub_fligths, 
+          delay = mean(dep_puntual, na.rm = TRUE), 
+          delay_grave = mean(dep_puntual_grave, na.rm = TRUE)
+          )
+```
+
+
+## Group By
+
+\tiny
+```{r,echo=TRUE}
+agrupar_x_mes = group_by(sub_fligths,dest)
+summarise(agrupar_x_mes, 
+          delay = mean(dep_puntual, na.rm = TRUE), 
+          delay_grave = mean(dep_puntual_grave, na.rm = TRUE),
+          conteo = n()
+          )
+```
+
+
+## Operador %>%
+\tiny
+```{r,echo=TRUE}
+flights %>%
+  select(month, day, tailnum, origin, dest, dep_delay) %>%
+  filter(dep_delay < 60 ) %>%
+  mutate(dep_puntual = dep_delay > 0, dep_puntual_grave = dep_delay > 30 ) %>%
+  group_by(dest)  %>%
+  summarise( 
+          delay = mean(dep_puntual, na.rm = TRUE), 
+          delay_grave = mean(dep_puntual_grave, na.rm = TRUE),
+          conteo = n()
+          )
+```
+
+
+## 
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.jpg}
+\end{center}
+
