@@ -1,0 +1,264 @@
+---
+title: 'Caja de Herramientas: R@FSOC'
+author: "TAO"
+date: "11/06/2021"
+output: 
+    beamer_presentation:
+            slide_level: 2
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Caja de Herramientas
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.png}
+\end{center}
+
+
+
+
+# Estructuras de Control
+
+
+## Sentencias condicionales
+
+\begin{center}
+\includegraphics[width=55mm]{/home/tao/Documents/Curso_R/flacso/C1/r_if_statement.jpg}
+\end{center}
+
+## Sentencias condicionales
+
+```{r echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+if( Expresión booleana 1) {
+	Ejecutá cuando Expresión booleana 1 es true.
+} else if( Expresión booleana 2) {
+	Ejecutá cuando Expresión booleana 1 es true.
+} else if( Expresión booleana 3) {
+	Ejecutá cuando Expresión booleana 1 es true.
+} else {
+	Ejecutá cuando el resto de las expresión son falsas.
+}
+```
+
+## Sentencias condicionales: Caso 1
+
+```{r echo=TRUE}
+# Defino una variable que contiene la "etiqueta de mi manzana"
+manzana = "R"
+
+if(manzana == "R"){
+	print("Es una manzana roja")
+}
+```
+
+## Sentencias condicionales: Caso 2
+```{r echo=TRUE}
+if(manzana == "V"){
+	print("Es una manzana verde")
+} else{
+	print("No es una manzana verde")
+}
+```
+
+## Sentencias condicionales: Caso 3
+```{r echo=TRUE}
+if(manzana == "V"){
+	print("Es una manzana verde")
+} else if(manzana == "A"){
+	print("Es una manzana amarilla")
+} else {
+	print("Es una manzana roja")
+}
+```
+
+
+## While 
+
+\begin{center}
+\includegraphics[width=45mm]{/home/tao/Documents/Curso_R/flacso/C1/swift_while_loop.jpg}
+\end{center}
+
+## While 
+
+```{r echo=TRUE}
+x<- c("Hola Mundo")
+cnt <- 0
+
+while (cnt < 3) {
+    print(paste0("Eval n° ",cnt,": ", x))
+    cnt = cnt + 1
+}
+```
+
+## Loops
+
+\begin{center}
+\includegraphics[width=35mm]{/home/tao/Documents/Curso_R/flacso/C1/r_for_loop.jpg}
+\end{center}
+
+
+## Loops
+
+```{r echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+for (valor in vector) {
+    sentencia
+}
+```
+
+## Loops: Caso 1
+```{r echo=TRUE}
+for(i in 1:10){
+    print(i)
+}
+```
+
+
+## Loops: Caso 2
+
+```{r echo=TRUE}
+x=letters[1:10]
+for(i in 1:10){
+    print(x[i])
+}
+```
+
+
+
+# Funciones
+
+## Definición de Funciones
+
+```{r echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+nombre_funcion <- function(arg_1, arg_2, ...) {
+    Cuerpo de la función 
+}
+
+```
+
+## Componentes de una función
+
+Los diferentes componetes de una función son:
+
+* Nombre
+
+* Argumentos
+
+* Cuerpo de la función
+
+* Valor de retorno
+
+
+## Caso 1: Función sencilla
+
+```{r echo=TRUE}
+suma <- function(x,y){
+    aux = x+y
+    return(aux)
+}
+
+suma(1,2)
+```
+
+## Caso 2: Función con un condicional
+
+```{r echo=TRUE}
+color_manzanas <- function(manzana){
+    
+    if(manzana == "V"){
+        aux = "verde"
+    } else if(manzana == "A"){
+        aux = "amarilla"
+    } else {
+        aux = "roja"
+    }
+    
+    return(aux)
+}
+
+x="R"
+
+color_manzanas(x)
+```
+
+
+## Caso 3A
+
+```{r include=FALSE}
+rm(list=ls())
+```
+
+```{r echo=TRUE}
+color_manzanas <- function(manzana){
+    x = "V"
+    if(manzana == "V"){
+        aux = "verde"
+    } else if(manzana == "A"){
+        aux = "amarilla"
+    } else {
+        aux = "roja"
+    }
+    return(aux)
+}
+x="R"
+color_manzanas(x)
+x
+```
+
+## Caso 3B
+```{r include=FALSE}
+rm(list=ls())
+```
+
+```{r echo=TRUE}
+color_manzanas <- function(manzana){
+    manzana = "V"
+    if(manzana == "V"){
+        aux = "verde"
+    } else if(manzana == "A"){
+        aux = "amarilla"
+    } else {
+        aux = "roja"
+    }
+    return(aux)
+}
+x="R"
+color_manzanas(x)
+x
+```
+
+
+## Caso 3C
+```{r include=FALSE}
+rm(list=ls())
+```
+
+```{r echo=TRUE}
+color_manzanas <- function(){
+    if(manzana == "V"){
+        aux = "verde"
+    } else if(manzana == "A"){
+        aux = "amarilla"
+    } else {
+        aux = "roja"
+    }
+    return(aux)
+}
+x="R"
+manzana= "V"
+color_manzanas()
+```
+
+
+
+
+## Caja de Herramientas
+
+\begin{center}
+\includegraphics[width=70mm]{Toolbox.png}
+\end{center}
+

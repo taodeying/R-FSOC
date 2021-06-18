@@ -10,11 +10,13 @@ genero <- read_csv("dat/genero.csv")
 ## Nombres
 Nombre_salario <- Nombre_salario %>% 
     rename("Salario_Promedio" = `Salario Promedio`)
+
 colnames(Nombre_salario) <- toupper( colnames(Nombre_salario) )
 
 
 genero <- genero %>%
-    rename("Nombre" = Nombres)
+    rename("Nombre" = Nombres, "genero" = sexo) 
+
 colnames(genero) <- toupper( colnames(genero) )
 
 
@@ -41,10 +43,18 @@ datos <- Nombre_salario %>%
     left_join(genero, by = c("NOMBRE", "EDAD") )
 
 
+
+rel_nombre_genero <- datos %>% 
+    select(indice_genero,indice_Nombre_salario)
+
+
+
+
+
 # Reordenar
 
 Individuos <- datos %>% 
-    select(NOMBRE, EDAD, genero, CARRERA)
+    select(NOMBRE, EDAD, GENERO, CARRERA)
 
 Carrera <- datos %>% 
     select(CARRERA, SALARIO_PROMEDIO)
@@ -61,6 +71,10 @@ Individuos
 # Corregir datos Errones
 Carrera$SALARIO_PROMEDIO[Carrera$CARRERA=="Sociología"] <- 40000
 
+
+# crear id carrera
+Carrera <- Carrera %>% 
+    mutate( ID_carr = (1:n()) )
 
 
 # Guardar
